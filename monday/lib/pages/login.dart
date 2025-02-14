@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
+class signinPage extends StatefulWidget {
+  const signinPage({super.key});
 
   @override
-  _SignupPageState createState() => _SignupPageState();
+  _SigninPageState createState() => _SigninPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _SigninPageState extends State<signinPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
-
-  void _signup() {
+  void _SigninPage() {
     if (_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Signup Successful!')),
+        const SnackBar(content: Text('Signin Successful!')),
       );
     }
   }
@@ -47,7 +45,7 @@ class _SignupPageState extends State<SignupPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Sign Up",
+                    "Sign in",
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 20),
@@ -62,8 +60,8 @@ class _SignupPageState extends State<SignupPage> {
                     decoration: const InputDecoration(labelText: "Email", border: OutlineInputBorder()),
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) {
-                      if (value!.isEmpty) return "Please confirm your email";
-                      if (value != _emailController.text) return "email should be valid";
+                      if (value!.isEmpty) return "email";
+                      if (value.length < 30) return "email @-!-A-z";
                       return null;
                     },
                   ),
@@ -78,35 +76,24 @@ class _SignupPageState extends State<SignupPage> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    controller: _confirmPasswordController,
-                    decoration: const InputDecoration(labelText: "Confirm Password", border: OutlineInputBorder()),
-                    obscureText: true,
-                    validator: (value) {
-                      if (value!.isEmpty) return "Please confirm your password";
-                      if (value != _passwordController.text) return "Passwords do not match";
-                      return null;
-                    },
-                  ),
+                 
                   const SizedBox(height: 40),
                   SizedBox(
-                    
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: _signup,
-                      child: const Text("Sign Up", style: TextStyle(fontSize: 30)),
+                      onPressed: _SigninPage,
+                      child: const Text("login", style: TextStyle(fontSize: 30)),
                     ),
                   ),
                   const SizedBox(height: 20),
                   Center(
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context,'/login');
+                        Navigator.pushNamed(context, '/');
                       },
                       child: const Text(
-                        "Already have an account? Login",
-                        style: TextStyle(color: Color.fromARGB(255, 68, 84, 97), fontSize: 16),
+                        "Already have an account? sign up",
+                        style: TextStyle(color: Color.fromARGB(255, 124, 127, 129), fontSize: 16),
                       ),
                     ),
                   ),
@@ -115,7 +102,7 @@ class _SignupPageState extends State<SignupPage> {
             ),
           ),
         ),
-      ),
+      ), 
     );
   }
 }
